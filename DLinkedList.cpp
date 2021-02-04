@@ -10,12 +10,12 @@ class Node{
     Node(char inVal){
         val=inVal;
         next=NULL;
-        prev=NULL;    }
+        prev=NULL;    
+    }
 };
 
 class LinkedList{
     private:
-        Node* head;
         Node* tail;
     //create Node
     Node* create_node(char val){
@@ -25,6 +25,7 @@ class LinkedList{
         return newNode;
     }
     public:
+    Node* head;
     //constructor
     LinkedList(){
         head=NULL;
@@ -105,8 +106,6 @@ class LinkedList{
     }
     //convert string to linkedList
     void convertStrToList(string str){
-        // LinkedList* linkedlist= new LinkedList();
-        
         for(int i=0;i<str.length();i++){
             insert_tail(str.at(i));
         }
@@ -120,10 +119,3 @@ class LinkedList{
         cout<<endl;
     }
 };
-int main(){
-    string test= "test linked list";
-    LinkedList* list= new LinkedList();
-    list->convertStrToList(test);
-    list->printList();
-    return 0;
-}
