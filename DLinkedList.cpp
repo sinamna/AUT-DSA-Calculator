@@ -21,7 +21,7 @@ class LinkedList{
         head=NULL;
         tail=NULL;
         curser=create_node('c');
-        head=curser;
+        head=tail=curser;
     }
     //size
     //return curser
@@ -118,10 +118,14 @@ class LinkedList{
         if(curser==head){
             Node* nextNode=curser->next;
             curser->next=nextNode->next;
-            nextNode->next->prev=curser;
             nextNode->next=curser;
             curser->prev=nextNode;
             head=nextNode;
+            if(curser->next!=NULL)
+                nextNode->next->prev=curser;
+            else
+                tail=curser;
+            
         }else{
             curser->prev->next=curser->next;
             curser->next->prev=curser->prev;
@@ -133,9 +137,37 @@ class LinkedList{
             nextNode->next=curser;
             if(curser->next!=NULL)
                 curser->next->prev=curser;
-            // :"")
+            else
+                tail=curser;
+            // :"") 
         }
-
-
     }
+    void moveCurserToLeft(){
+            if(curser==head) return;
+            if(curser==tail){
+                Node* prevNode=curser->prev;
+                curser->prev=prevNode->prev;
+                prevNode->next=curser->next;
+                curser->next=prevNode;
+                prevNode->prev=curser;
+                tail=prevNode;
+                if(curser->prev!=NULL)
+                    curser->prev->next=curser;
+                else
+                    head=curser;  
+            }else{
+                curser->next->prev=curser->prev;
+                curser->prev->next=curser->next;
+
+                Node* prevNode=curser->prev;
+                curser->prev=prevNode->prev;
+                curser->next=prevNode;
+                prevNode->prev=curser;
+
+                if(curser->prev!=NULL)
+                    curser->prev->next=curser;
+                else
+                    head=curser;
+            }
+        }
 };
