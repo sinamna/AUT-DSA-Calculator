@@ -1,11 +1,10 @@
 #include <iostream>
 #include <string>
-#include <Node.h>
+#include "Node.h"
 using namespace std;
 //class based linked list
 class LinkedList{
     private:
-        Node* tail;
     //create Node
     Node* create_node(char val){
         Node* newNode= new Node(val);
@@ -14,14 +13,21 @@ class LinkedList{
         return newNode;
     }
     public:
+    Node* tail;
     Node* head;
+    Node* curser;
     //constructor
     LinkedList(){
         head=NULL;
         tail=NULL;
+        curser=create_node('c');
+        head=curser;
     }
     //size
-
+    //return curser
+    Node* get_curser(){
+        return curser;
+    }
     //insert_head
     void insert_head(char val){
         Node* newNode=create_node(val);
@@ -106,5 +112,30 @@ class LinkedList{
             current=current->next;
         }
         cout<<endl;
+    }
+    void moveCurserToRight(){
+        if(curser==tail)return;
+        if(curser==head){
+            Node* nextNode=curser->next;
+            curser->next=nextNode->next;
+            nextNode->next->prev=curser;
+            nextNode->next=curser;
+            curser->prev=nextNode;
+            head=nextNode;
+        }else{
+            curser->prev->next=curser->next;
+            curser->next->prev=curser->prev;
+
+            Node* nextNode= curser->next;
+            curser->prev=nextNode;
+            curser->next=nextNode->next;
+
+            nextNode->next=curser;
+            if(curser->next!=NULL)
+                curser->next->prev=curser;
+            // :"")
+        }
+
+
     }
 };
