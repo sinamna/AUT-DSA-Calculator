@@ -40,7 +40,18 @@ class LinkedList{
         }
     }
     //remove_head
-
+    Node* remove_head(){
+        if(head==NULL) return NULL;
+        if(head->next==NULL){
+            Node* removedHead=head;
+            head=NULL;
+            return removedHead;
+        }else{
+            Node* removedHead=head;
+            head=head->next;
+            return removedHead;
+        }
+    }
     //insert_tail
     void insert_tail(int val){
         Node* newNode=create_node(val);
