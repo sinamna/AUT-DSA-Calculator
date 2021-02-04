@@ -62,7 +62,17 @@ class LinkedList{
         }
     }
     //remove_tail
-
+    Node* remove_tail(){
+        if(tail==NULL)return NULL;
+        Node* removedNode=tail;
+        if(tail->prev==NULL){
+            tail=NULL;
+        }else{
+            tail=tail->prev;
+        }
+        return removedNode;
+    }
+    
     //insert
 
     //remove
