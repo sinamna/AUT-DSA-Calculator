@@ -1,14 +1,7 @@
 #include<string>
+#include <Node.h>
 using namespace std;
-class Node{
-    public:
-    char val;
-    Node* next;
-    Node* prev;
-    Node(char inVal);
-};
 class LinkedList{
-
     public:
     Node* tail;
     Node* head;

@@ -1,19 +1,8 @@
 #include <iostream>
 #include <string>
+#include <Node.h>
 using namespace std;
 //class based linked list
-class Node{
-    public:
-    char val;
-    Node* next;
-    Node* prev;
-    Node(char inVal){
-        val=inVal;
-        next=NULL;
-        prev=NULL;    
-    }
-};
-
 class LinkedList{
     private:
         Node* tail;
