@@ -2,10 +2,10 @@
 //class based linked list
 class Node{
     public:
-    int val;
+    char val;
     Node* next;
     Node* prev;
-    Node(int inVal){
+    Node(char inVal){
         val=inVal;
         next=NULL;
         prev=NULL;    }
@@ -16,7 +16,7 @@ class LinkedList{
         Node* head;
         Node* tail;
     //create Node
-    Node* create_node(int val){
+    Node* create_node(char val){
         Node* newNode= new Node(val);
         newNode->next=NULL;
         newNode->prev=NULL;
@@ -31,7 +31,7 @@ class LinkedList{
     //size
 
     //insert_head
-    void insert_head(int val){
+    void insert_head(char val){
         Node* newNode=create_node(val);
         if (head==NULL) head=tail=newNode;
         else{
@@ -53,7 +53,7 @@ class LinkedList{
         }
     }
     //insert_tail
-    void insert_tail(int val){
+    void insert_tail(char val){
         Node* newNode=create_node(val);
         if (tail==NULL) head=tail=newNode;
         else{
@@ -72,9 +72,17 @@ class LinkedList{
         }
         return removedNode;
     }
-    
-    //insert
 
+    //insert
+    void insert(Node* cursor,char val){        
+        if(cursor==head)insert_head(val);
+        else if(cursor==tail)insert_tail(val);
+        else{
+            Node* newNode=create_node(val);
+            cursor->prev->next=newNode;
+            newNode->next=cursor;
+        }
+    }
     //remove
 
     //convert string to linkedList
