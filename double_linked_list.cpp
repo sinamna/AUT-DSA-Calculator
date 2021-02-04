@@ -36,21 +36,21 @@ class LinkedList{
         if (head==NULL) head=tail=newNode;
         else{
             newNode->next=head;
+            head->prev=newNode;
             head=newNode;
         }
     }
     //remove_head
     Node* remove_head(){
         if(head==NULL) return NULL;
+        Node* removedHead=head;
         if(head->next==NULL){
-            Node* removedHead=head;
-            head=NULL;
-            return removedHead;
+            head=tail=NULL;
         }else{
-            Node* removedHead=head;
+            head->next->prev=NULL;
             head=head->next;
-            return removedHead;
         }
+        return removedHead;
     }
     //insert_tail
     void insert_tail(char val){
@@ -58,6 +58,7 @@ class LinkedList{
         if (tail==NULL) head=tail=newNode;
         else{
             tail->next=newNode;
+            newNode->prev=tail;
             tail=newNode;
         }
     }
@@ -66,24 +67,43 @@ class LinkedList{
         if(tail==NULL)return NULL;
         Node* removedNode=tail;
         if(tail->prev==NULL){
-            tail=NULL;
+            head=tail=NULL;
         }else{
+            tail->prev->next=NULL;
             tail=tail->prev;
         }
         return removedNode;
     }
 
-    //insert
+    //insert in calculator
     void insert(Node* cursor,char val){        
         if(cursor==head)insert_head(val);
-        else if(cursor==tail)insert_tail(val);
+        else if(cursor==tail){
+            Node* newNode=create_node(val);
+            tail->prev->next=newNode;
+            newNode->prev=tail->prev;
+            newNode->next=tail;
+            tail->prev=newNode;
+        }
         else{
             Node* newNode=create_node(val);
             cursor->prev->next=newNode;
+            newNode->prev=cursor->prev;
             newNode->next=cursor;
+            cursor->prev=newNode;
         }
     }
-    //remove
+    //remove in calculator
+    Node* remove(Node* cursor){
+        if(cursor==head) return NULL;
+        Node* removedNode;
+        if(cursor==head->next)removedNode=remove_head();
+        else{
+            removedNode=cursor->prev;
+            removedNode->prev->next=removedNode->next;
 
+        }
+
+    }
     //convert string to linkedList
 };
