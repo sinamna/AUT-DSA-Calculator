@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+using namespace std;
 //class based linked list
 class Node{
     public:
@@ -102,4 +104,11 @@ class LinkedList{
         return nodeToRemove;
     }
     //convert string to linkedList
+    LinkedList* convertStrToList(string str){
+        LinkedList* linkedlist= new LinkedList();
+        for(int i;i<str.length();i++){
+            linkedlist->insert_tail(str.at(i));
+        }
+        return linkedlist;
+    }
 };
