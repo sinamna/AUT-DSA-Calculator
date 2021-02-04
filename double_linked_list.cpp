@@ -94,16 +94,12 @@ class LinkedList{
         }
     }
     //remove in calculator
-    Node* remove(Node* cursor){
-        if(cursor==head) return NULL;
-        Node* removedNode;
-        if(cursor==head->next)removedNode=remove_head();
-        else{
-            removedNode=cursor->prev;
-            removedNode->prev->next=removedNode->next;
-
-        }
-
+    Node* remove(Node* nodeToRemove){
+        if(nodeToRemove==head)return remove_head();
+        if(nodeToRemove==tail)return remove_tail();
+        nodeToRemove->prev->next=nodeToRemove->next;
+        nodeToRemove->next->prev=nodeToRemove->prev;
+        return nodeToRemove;
     }
     //convert string to linkedList
 };
