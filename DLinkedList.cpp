@@ -15,18 +15,18 @@ class LinkedList{
     public:
     Node* tail;
     Node* head;
-    Node* curser;
+    Node* cursor;
     //constructor
     LinkedList(){
         head=NULL;
         tail=NULL;
-        curser=create_node('c');
-        head=tail=curser;
+        cursor=create_node('c');
+        head=tail=cursor;
     }
     //size
-    //return curser
-    Node* get_curser(){
-        return curser;
+    //return cursor
+    Node* get_cursor(){
+        return cursor;
     }
     //insert_head
     void insert_head(char val){
@@ -74,7 +74,7 @@ class LinkedList{
     }
 
     //insert in calculator
-    void insert(Node* cursor,char val){        
+    void insert(char val){        
         if(cursor==head)insert_head(val);
         else if(cursor==tail){
             Node* newNode=create_node(val);
@@ -92,7 +92,9 @@ class LinkedList{
         }
     }
     //remove in calculator
-    Node* remove(Node* nodeToRemove){
+    Node* remove(){
+        Node* nodeToRemove=cursor->prev;
+        if(nodeToRemove==NULL) return NULL;
         if(nodeToRemove==head)return remove_head();
         if(nodeToRemove==tail)return remove_tail();
         nodeToRemove->prev->next=nodeToRemove->next;
@@ -113,61 +115,61 @@ class LinkedList{
         }
         cout<<endl;
     }
-    void moveCurserToRight(){
-        if(curser==tail)return;
-        if(curser==head){
-            Node* nextNode=curser->next;
-            curser->next=nextNode->next;
-            nextNode->next=curser;
-            curser->prev=nextNode;
+    void movecursorToRight(){
+        if(cursor==tail)return;
+        if(cursor==head){
+            Node* nextNode=cursor->next;
+            cursor->next=nextNode->next;
+            nextNode->next=cursor;
+            cursor->prev=nextNode;
             head=nextNode;
-            if(curser->next!=NULL)
-                nextNode->next->prev=curser;
+            if(cursor->next!=NULL)
+                nextNode->next->prev=cursor;
             else
-                tail=curser;
+                tail=cursor;
             
         }else{
-            curser->prev->next=curser->next;
-            curser->next->prev=curser->prev;
+            cursor->prev->next=cursor->next;
+            cursor->next->prev=cursor->prev;
 
-            Node* nextNode= curser->next;
-            curser->prev=nextNode;
-            curser->next=nextNode->next;
+            Node* nextNode= cursor->next;
+            cursor->prev=nextNode;
+            cursor->next=nextNode->next;
 
-            nextNode->next=curser;
-            if(curser->next!=NULL)
-                curser->next->prev=curser;
+            nextNode->next=cursor;
+            if(cursor->next!=NULL)
+                cursor->next->prev=cursor;
             else
-                tail=curser;
-            // :"") 
+                tail=cursor;
+            // :"") PARE
         }
     }
-    void moveCurserToLeft(){
-            if(curser==head) return;
-            if(curser==tail){
-                Node* prevNode=curser->prev;
-                curser->prev=prevNode->prev;
-                prevNode->next=curser->next;
-                curser->next=prevNode;
-                prevNode->prev=curser;
+    void movecursorToLeft(){
+            if(cursor==head) return;
+            if(cursor==tail){
+                Node* prevNode=cursor->prev;
+                cursor->prev=prevNode->prev;
+                prevNode->next=cursor->next;
+                cursor->next=prevNode;
+                prevNode->prev=cursor;
                 tail=prevNode;
-                if(curser->prev!=NULL)
-                    curser->prev->next=curser;
+                if(cursor->prev!=NULL)
+                    cursor->prev->next=cursor;
                 else
-                    head=curser;  
+                    head=cursor;  
             }else{
-                curser->next->prev=curser->prev;
-                curser->prev->next=curser->next;
+                cursor->next->prev=cursor->prev;
+                cursor->prev->next=cursor->next;
 
-                Node* prevNode=curser->prev;
-                curser->prev=prevNode->prev;
-                curser->next=prevNode;
-                prevNode->prev=curser;
+                Node* prevNode=cursor->prev;
+                cursor->prev=prevNode->prev;
+                cursor->next=prevNode;
+                prevNode->prev=cursor;
 
-                if(curser->prev!=NULL)
-                    curser->prev->next=curser;
+                if(cursor->prev!=NULL)
+                    cursor->prev->next=cursor;
                 else
-                    head=curser;
+                    head=cursor;
             }
         }
 };
