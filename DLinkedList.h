@@ -11,8 +11,8 @@ class LinkedList{
     Node* remove_head();
     void insert_tail(char val);
     Node* remove_tail();
-    void insert(Node* cursor,char val);
-    Node* remove(Node* nodeToRemove);
+    void insert(char val);
+    Node* remove();
     void convertStrToList(string str);
     void printList();
     void moveCursorToLeft();
