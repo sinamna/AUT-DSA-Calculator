@@ -104,11 +104,26 @@ class LinkedList{
         return nodeToRemove;
     }
     //convert string to linkedList
-    LinkedList* convertStrToList(string str){
-        LinkedList* linkedlist= new LinkedList();
-        for(int i;i<str.length();i++){
-            linkedlist->insert_tail(str.at(i));
+    void convertStrToList(string str){
+        // LinkedList* linkedlist= new LinkedList();
+        
+        for(int i=0;i<str.length();i++){
+            insert_tail(str.at(i));
         }
-        return linkedlist;
+    }
+    void printList(){
+        Node* current=head;
+        while(current!=NULL){
+            cout<<current->val;
+            current=current->next;
+        }
+        cout<<endl;
     }
 };
+int main(){
+    string test= "test linked list";
+    LinkedList* list= new LinkedList();
+    list->convertStrToList(test);
+    list->printList();
+    return 0;
+}
