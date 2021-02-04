@@ -5,7 +5,7 @@ class LinkedList{
     public:
     Node* tail;
     Node* head;
-    Node* curser;
+    Node* cursor;
     LinkedList();
     void insert_head(char val);
     Node* remove_head();
@@ -15,6 +15,6 @@ class LinkedList{
     Node* remove(Node* nodeToRemove);
     void convertStrToList(string str);
     void printList();
-    void moveCurserToLeft();
-    void moveCurserToright();
+    void moveCursorToLeft();
+    void moveCursorToRight();
 };
