@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stack>
+#include <unordered_map> 
 #include "DLinkedList.h"
 #include "Node.h"
 using namespace std;
@@ -10,6 +11,7 @@ class Calculator{
         LinkedList* list;
 
         //unordered_map for hashing
+        unordered_map<string,long> savedEval;
         // string expr;
     int precLevel(char ch){
         switch (ch){
@@ -67,42 +69,45 @@ class Calculator{
         list= new LinkedList();
         list->convertStrToList(expr);
     }
-    //hashing 
-    
-    //calculating 
+    //calculating and hashing
     long evalPostfix(){
+        long result;
         string postExpr= convertToPostfix();
-        stack<long> operands;
-        string operators="()*+-";
-
-        for(int i=0;i<postExpr.length();i++){
-            char ch = postExpr.at(i);
-            size_t is_operand=operators.find(ch);
-            if(is_operand!=string::npos){
-                long op1=operands.top();
-                operands.pop();
-                long op2= operands.top();
-                operands.pop();
-                long result=0;
-                switch(ch){
-                    case '*':
-                        result=op1*op2;
-                        break;
-                    case '+':
-                        result=op1+op2;
-                        break;
-                    case '-':
-                        result=op2-op1;
-                        break;
+        if (savedEval.find(postExpr)==savedEval.end()){
+            stack<long> operands;
+            string operators="()*+-";
+            for(int i=0;i<postExpr.length();i++){
+                char ch = postExpr.at(i);
+                size_t is_operand=operators.find(ch);
+                if(is_operand!=string::npos){
+                    long op1=operands.top();
+                    operands.pop();
+                    long op2= operands.top();
+                    operands.pop();
+                    long result=0;
+                    switch(ch){
+                        case '*':
+                            result=op1*op2;
+                            break;
+                        case '+':
+                            result=op1+op2;
+                            break;
+                        case '-':
+                            result=op2-op1;
+                            break;
+                    }
+                    operands.push(result%(10^9+7));
+                }else{
+                    int num = ch - '0';
+                    operands.push(num);
                 }
-                operands.push(result%(10^9+7));
-            }else{
-                int num = ch - '0';
-                operands.push(num);
             }
+            result = operands.top();
+            operands.pop();
+            savedEval[postExpr]=result;
+        }else{
+            result =savedEval.at(postExpr);
         }
-        long result = operands.top();
-        operands.pop();
         return result;
     }
     
