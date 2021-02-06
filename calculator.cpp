@@ -70,7 +70,7 @@ class Calculator{
     //hashing 
     
     //calculating 
-    int evalPostfix(){
+    long evalPostfix(){
         string postExpr= convertToPostfix();
         stack<long> operands;
         string operators="()*+-";
@@ -87,14 +87,17 @@ class Calculator{
                 switch(ch){
                     case '*':
                         result=op1*op2;
+                        break;
                     case '+':
                         result=op1+op2;
+                        break;
                     case '-':
                         result=op2-op1;
+                        break;
                 }
                 operands.push(result%(10^9+7));
             }else{
-                int num = ch - 48;
+                int num = ch - '0';
                 operands.push(num);
             }
         }
