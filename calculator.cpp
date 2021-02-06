@@ -10,7 +10,7 @@ class Calculator{
         LinkedList* list;
 
         //unordered_map for hashing
-        string expr;
+        // string expr;
     int precLevel(char ch){
         switch (ch){
             case '+':
@@ -63,17 +63,44 @@ class Calculator{
         return result;
     }
     public:
-
     Calculator(string expr){
         list= new LinkedList();
-        this->expr=expr;
         list->convertStrToList(expr);
     }
     //hashing 
     
     //calculating 
     int evalPostfix(){
-        stack<char> operands;
+        string postExpr= convertToPostfix();
+        stack<long> operands;
+        string operators="()*+-";
+
+        for(int i=0;i<postExpr.length();i++){
+            char ch = postExpr.at(i);
+            size_t is_operand=operators.find(ch);
+            if(is_operand!=string::npos){
+                long op1=operands.top();
+                operands.pop();
+                long op2= operands.top();
+                operands.pop();
+                long result=0;
+                switch(ch){
+                    case '*':
+                        result=op1*op2;
+                    case '+':
+                        result=op1+op2;
+                    case '-':
+                        result=op2-op1;
+                }
+                operands.push(result%(10^9+7));
+            }else{
+                int num = ch - 48;
+                operands.push(num);
+            }
+        }
+        long result = operands.top();
+        operands.pop();
+        return result;
     }
     
     //move cursor to right
