@@ -22,25 +22,16 @@ class Calculator{
             case '(':
                 return 1;
         }
+        return 0;
     }
-    public:
-
-    Calculator(string expr){
-        list= new LinkedList();
-        this->expr=expr;
-    }
-    //hashing 
-
-    //calculating 
-
-    //converting infix to postfix
     string convertToPostfix(){
-        string operands="()*+-";
+        string operators="()*+-";
         string result="";
         stack<char> opstack;
-        for (int i=0;i<expr.length();i++){
-            char ch = expr.at(i);
-            size_t operand_found=operands.find(ch);
+        Node* current=list->head;
+        while(current!=NULL){
+            char ch = current->val;
+            size_t operand_found=operators.find(ch);
             if(operand_found != string::npos){
                 if(ch == '(')
                     opstack.push(ch);
@@ -63,6 +54,7 @@ class Calculator{
             }else{
                 result.push_back(ch);
             }
+            current=current->next;
         }
         while(!opstack.empty()){
             result.push_back(opstack.top());
@@ -70,6 +62,20 @@ class Calculator{
         }
         return result;
     }
+    public:
+
+    Calculator(string expr){
+        list= new LinkedList();
+        this->expr=expr;
+        list->convertStrToList(expr);
+    }
+    //hashing 
+    
+    //calculating 
+    int evalPostfix(){
+        stack<char> operands;
+    }
+    
     //move cursor to right
     void moveCurserToRight(){
         list->moveCursorToRight();
