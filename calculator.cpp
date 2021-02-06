@@ -9,7 +9,6 @@ using namespace std;
 class Calculator{
     private:
         LinkedList* list;
-
         //unordered_map for hashing
         unordered_map<string,long> savedEval;
         // string expr;
@@ -125,8 +124,41 @@ class Calculator{
     void removeChar(){
         list->remove();
     }
+    void printExpr(){
+        list->printList();
+    }
 };
 
 int main(){
+    int orderCount;
+    cin>>orderCount;
+    string expression;
+    // getline(cin,expression);
+    cin>>expression;
 
+    Calculator cal(expression);
+    for (int i=0;i<orderCount;i++){
+        string order;
+        getline(cin,order);
+        switch(order.at(0)){
+            case '>':
+                cal.moveCurserToRight();
+                break;
+            case '<':
+                cal.moveCurserToLeft();
+                break;
+            case '?':
+                cal.printExpr();
+                break;
+            case '-':
+                cal.removeChar();
+                break;
+            case '!':
+                cout<<cal.evalPostfix();
+                break;
+            default:
+                char toBeAdded= order.at(0);
+                cal.addCharacter(toBeAdded);
+        }
+    }
 }
