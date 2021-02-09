@@ -291,7 +291,7 @@ class Calculator{
         stringstream ss(postExpr);
         string tokenStr;
         if (savedEval.find(postExpr)==savedEval.end()){
-            stack<string> operands;
+            stack<long> operands;
             string operators="()*+-";
             while(ss>>tokenStr){
                 if(operators.find(tokenStr)!=string::npos){
@@ -303,7 +303,7 @@ class Calculator{
                     if(tokenStr=="+")result=(op1+op2)%LIMIT;
                     else if(tokenStr=="-")result=(op2-op1)%LIMIT;
                     else if(tokenStr=="*")result=(op1*op2)%LIMIT;
-                    operands.push(strToLongMod());
+                    operands.push(result);
                 }else{
                     long token;
                     if(tokenStr.length()>=9)token=strToLongMod(tokenStr);
